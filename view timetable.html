@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>View Timetable</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .timetable-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 800px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4b0082;
+      margin-bottom: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #dbeafe;
+      color: #333;
+    }
+
+    td {
+      background-color: #f9fafb;
+    }
+
+    .back-btn {
+      display: block;
+      margin: 1.5rem auto 0;
+      padding: 0.6rem 1.2rem;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: linear-gradient(to right, #5a67d8, #6b46c1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="timetable-container">
+    <h1>Faculty Timetable</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Time</th>
+          <th>Subject</th>
+          <th>Class</th>
+          <th>Faculty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Monday</td>
+          <td>9:45 - 10:35</td>
+          <td>Machine Learning</td>
+          <td>S206</td>
+          <td>Prof. Manali Raut</td>
+        </tr>
+        <tr>
+          <td>Tuesday</td>
+          <td>10:50 - 12:40</td>
+          <td>Mini Project</td>
+          <td>S208</td>
+          <td>Dr. Suvarna Bhagwat</td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+
+    <button class="back-btn" onclick="window.location.href='faculty-home.html'">Back to Home</button>
+  </div>
+
+</body>
+</html>
