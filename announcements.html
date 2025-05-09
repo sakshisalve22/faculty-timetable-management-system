@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faculty HomePage</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    .home-container {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #4b0082;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: #eef2ff;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      color: #5a67d8;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn {
+      margin-top: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to right, #5a67d8, #6b46c1);
+    }
+
+    /* Announcements Section */
+    #announcements {
+      display: none;
+      margin-top: 1rem;
+      background: #eef2ff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .announcement-item {
+      background: #f0f4ff;
+      border-radius: 8px;
+      padding: 0.8rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .announcement-item span {
+      flex-grow: 1;
+    }
+
+    .delete-btn {
+      background: #ff6347;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background: #e53e3e;
+    }
+
+    .add-announcement-btn {
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .add-announcement-btn:hover {
+      background: linear-gradient(to right, #5a67d8, #6b46c1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="home-container">
+    <h1>Welcome,</h1>
+
+    <div class="card">
+      <h3>Announcements</h3>
+      <button class="btn" onclick="toggleAnnouncements()">View Announcements</button>
+
+      <div id="announcements">
+        <div id="announcement-list">
+          <!-- Announcements will be added here dynamically -->
+        </div>
+        <button class="add-announcement-btn" onclick="showAddAnnouncementForm()">Add Announcement</button>
+      </div>
+
+      <div id="add-announcement-form" style="display: none;">
+        <input type="text" id="announcement-text" placeholder="Enter announcement" style="width: 100%; padding: 0.6rem; margin-top: 1rem; border-radius: 8px; border: 1px solid #ccc;">
+        <button class="btn" onclick="addAnnouncement()">Save Announcement</button>
+        <button class="btn" onclick="cancelAddAnnouncement()">Cancel</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Generate Timetable</h3>
+      <button class="btn">Generate</button>
+    </div>
+
+    <div class="card">
+      <h3>Edit Profile</h3>
+      <button class="btn">Edit</button>
+    </div>
+
+    <div class="card">
+      <h3>Notifications</h3>
+      <button class="btn">View</button>
+    </div>
+
+    <div class="card">
+      <h3>Logout</h3>
+      <button class="btn">Sign Out</button>
+    </div>
+  </div>
+
+  <script>
+    // Toggle Announcements Visibility
+    function toggleAnnouncements() {
+      const announcementsDiv = document.getElementById("announcements");
+      announcementsDiv.style.display = announcementsDiv.style.display === "block" ? "none" : "block";
+    }
+
+    // Show Add Announcement Form
+    function showAddAnnouncementForm() {
+      document.getElementById("add-announcement-form").style.display = "block";
+    }
+
+    // Add a New Announcement
+    function addAnnouncement() {
+      const announcementText = document.getElementById("announcement-text").value;
+
+      if (announcementText.trim() === "") {
+        alert("Please enter an announcement!");
+        return;
+      }
+
+      // Create Announcement Element
+      const announcementList = document.getElementById("announcement-list");
+      const announcementItem = document.createElement("div");
+      announcementItem.className = "announcement-item";
+
+      // Add the announcement text
+      const announcementTextSpan = document.createElement("span");
+      announcementTextSpan.textContent = announcementText;
+      announcementItem.appendChild(announcementTextSpan);
+
+      // Add the delete button
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "delete-btn";
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = function() {
+        announcementList.removeChild(announcementItem);
+      };
+      announcementItem.appendChild(deleteButton);
+
+      // Append the announcement to the list
+      announcementList.appendChild(announcementItem);
+
+      // Clear input and hide form
+      document.getElementById("announcement-text").value = "";
+      cancelAddAnnouncement();
+    }
+
+    // Cancel Add Announcement
+    function cancelAddAnnouncement() {
+      document.getElementById("add-announcement-form").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
