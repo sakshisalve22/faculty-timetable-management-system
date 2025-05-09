@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faculty HomePage </title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    .home-container {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #4b0082;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: #eef2ff;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      color: #5a67d8;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn {
+      margin-top: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to right, #5a67d8, #6b46c1);
+    }
+
+    /* Notifications Section */
+    #notifications {
+      display: none;
+      margin-top: 1rem;
+      background: #eef2ff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .notification-item {
+      background: #f0f4ff;
+      border-radius: 8px;
+      padding: 0.8rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .notification-item span {
+      flex-grow: 1;
+    }
+
+    .delete-btn {
+      background: #ff6347;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background: #e53e3e;
+    }
+
+    .add-notification-btn {
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .add-notification-btn:hover {
+      background: linear-gradient(to right, #5a67d8, #6b46c1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="home-container">
+    <h1>Welcome,</h1>
+
+    <div class="card">
+      <h3>Notifications</h3>
+      <button class="btn" onclick="toggleNotifications()">View Notifications</button>
+
+      <div id="notifications">
+        <div id="notification-list">
+          <!-- Notifications will be added here dynamically -->
+        </div>
+        <button class="add-notification-btn" onclick="showAddNotificationForm()">Add Notification</button>
+      </div>
+
+      <div id="add-notification-form" style="display: none;">
+        <input type="text" id="notification-text" placeholder="Enter notification" style="width: 100%; padding: 0.6rem; margin-top: 1rem; border-radius: 8px; border: 1px solid #ccc;">
+        <button class="btn" onclick="addNotification()">Save Notification</button>
+        <button class="btn" onclick="cancelAddNotification()">Cancel</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Generate Timetable</h3>
+      <button class="btn">Generate</button>
+    </div>
+
+    <div class="card">
+      <h3>Edit Profile</h3>
+      <button class="btn">Edit</button>
+    </div>
+
+    <div class="card">
+      <h3>Announcements</h3>
+      <button class="btn">View</button>
+    </div>
+
+    <div class="card">
+      <h3>Logout</h3>
+      <button class="btn">Sign Out</button>
+    </div>
+  </div>
+
+  <script>
+    // Toggle Notifications Visibility
+    function toggleNotifications() {
+      const notificationsDiv = document.getElementById("notifications");
+      notificationsDiv.style.display = notificationsDiv.style.display === "block" ? "none" : "block";
+    }
+
+    // Show Add Notification Form
+    function showAddNotificationForm() {
+      document.getElementById("add-notification-form").style.display = "block";
+    }
+
+    // Add a New Notification
+    function addNotification() {
+      const notificationText = document.getElementById("notification-text").value;
+
+      if (notificationText.trim() === "") {
+        alert("Please enter a notification!");
+        return;
+      }
+
+      // Create Notification Element
+      const notificationList = document.getElementById("notification-list");
+      const notificationItem = document.createElement("div");
+      notificationItem.className = "notification-item";
+
+      // Add the notification text
+      const notificationTextSpan = document.createElement("span");
+      notificationTextSpan.textContent = notificationText;
+      notificationItem.appendChild(notificationTextSpan);
+
+      // Add the delete button
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "delete-btn";
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = function() {
+        notificationList.removeChild(notificationItem);
+      };
+      notificationItem.appendChild(deleteButton);
+
+      // Append the notification to the list
+      notificationList.appendChild(notificationItem);
+
+      // Clear input and hide form
+      document.getElementById("notification-text").value = "";
+      cancelAddNotification();
+    }
+
+    // Cancel Add Notification
+    function cancelAddNotification() {
+      document.getElementById("add-notification-form").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
