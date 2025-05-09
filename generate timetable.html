@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faculty HomePage </title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    .home-container {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #4b0082;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: #eef2ff;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      color: #5a67d8;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn {
+      margin-top: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to right, #5a67d8, #6b46c1);
+    }
+
+    #timetable, #generateForm {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f0f4ff;
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #timetable table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    #timetable th, #timetable td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    #timetable th {
+      background-color: #dbeafe;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #4b0082;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="home-container">
+    <h1>Welcome,</h1>
+
+    <div class="card">
+      <h3>View Timetable</h3>
+      <button class="btn" onclick="toggleTimetable()">View</button>
+      <div id="timetable">
+        <table>
+          <tr>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Subject</th>
+            <th>Class</th>
+            <th>Faculty</th>
+          </tr>
+          <tr>
+            <td>Monday</td>
+            <td>9:45 - 10:35</td>
+            <td>Machine Learning</td>
+            <td>S206</td>
+            <td>Prof.Manali Raut</td>
+          </tr>
+          <tr>
+            <td>Tuesday</td>
+            <td>10:50- 12:40</td>
+            <td>Mini Project</td>
+            <td>S208</td>
+            <td>Prof.Dr.Suvarna Bhagwat</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Generate Timetable</h3>
+      <button class="btn" onclick="toggleGenerateForm()">Generate</button>
+      <div id="generateForm">
+        <div class="form-group">
+          <label>Day</label>
+          <input type="text" id="gen-day" placeholder="Enter day (e.g., Wednesday)">
+        </div>
+        <div class="form-group">
+          <label>Time</label>
+          <input type="text" id="gen-time" placeholder="Enter time (e.g., 11:00 - 12:00)">
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" id="gen-subject" placeholder="Enter subject">
+        </div>
+        <div class="form-group">
+          <label>Class</label>
+          <input type="text" id="gen-class" placeholder="Enter class">
+        </div>
+        <div class="form-group">
+          <label>Faculty</label>
+          <input type="text" id="gen-faculty" placeholder="Enter faculty name">
+        </div>
+        <button class="btn" onclick="submitTimetable()">Submit</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Edit Profile</h3>
+      <button class="btn">Edit</button>
+    </div>
+
+    <div class="card">
+      <h3>Notifications</h3>
+      <button class="btn">View</button>
+    </div>
+
+    <div class="card">
+      <h3>Announcements</h3>
+      <button class="btn">View</button>
+    </div>
+
+    <div class="card">
+      <h3>Logout</h3>
+      <button class="btn">Sign Out</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleTimetable() {
+      const table = document.getElementById("timetable");
+      table.style.display = table.style.display === "none" ? "block" : "none";
+    }
+
+    function toggleGenerateForm() {
+      const form = document.getElementById("generateForm");
+      form.style.display = form.style.display === "none" ? "block" : "none";
+    }
+
+    function submitTimetable() {
+      const day = document.getElementById("gen-day").value;
+      const time = document.getElementById("gen-time").value;
+      const subject = document.getElementById("gen-subject").value;
+      const classRoom = document.getElementById("gen-class").value;
+      const faculty = document.getElementById("gen-faculty").value;
+
+      const table = document.querySelector("#timetable table");
+      const row = table.insertRow(-1);
+      row.innerHTML = `<td>${day}</td><td>${time}</td><td>${subject}</td><td>${classRoom}</td><td>${faculty}</td>`;
+
+      toggleGenerateForm();
+    }
+  </script>
+
+</body>
+</html>
